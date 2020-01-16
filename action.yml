@@ -1,10 +1,30 @@
-name: 'actions-template'
-author: ''
-description: 'description'
+name: 'actions-gke-ci-test'
+author: 'Kevin Dukelow'
+description: 'Run a test job and monitor the results'
 inputs:
-  input_one:
-    description: ''
+  gke_service_account:
+    description: 'Service account secret for the GKE service user'
+    required: true
+  gke_zone:
+    description: 'Zone which the GKE cluster is on'
+    required: true
+    default: 'us-east4-b'
+  gke_cluster:
+    description: 'GKE cluster to run the job on'
     required: false
+    default: 'cp-advtech-cluster'
+  gke_project:
+    description: 'Project which contains the cluster'
+    required: true
+    default: 'cp-advancedtech-sandbox'
+  manifest_file:
+    description: 'Path/file of the k8s manifest which will defines the testing job'
+    required: false
+    default: 'ci-test.yml'
+  namespace:
+    description: 'Namespace on GKE to run the test in'
+    required: false
+    default: 'ci-test'
 runs:
   using: 'docker'
   image: 'Dockerfile'
