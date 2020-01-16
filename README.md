@@ -1,6 +1,6 @@
-# Action Template
+# GKE CI automated test
 
-Action Description
+Runs a code test on a GKE cluster and monitors the job until completion
 
 ## Inputs
 
