@@ -1,6 +1,6 @@
 # GKE CI Test
 
-Runs a code test on a GKE cluster and monitors the job until completion.
+Runs a code test on a GKE cluster and monitors the job until completion. This action was built and tested only for testing jobs that run a single pod.
 
 ## Inputs
 
