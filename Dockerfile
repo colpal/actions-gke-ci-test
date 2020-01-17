@@ -9,5 +9,6 @@ LABEL com.github.actions.icon="cloud"
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+RUN gcloud components install kubectl
 
 ENTRYPOINT ["/entrypoint.sh"]

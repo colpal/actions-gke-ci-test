@@ -42,8 +42,8 @@ Defaults to 'ci-test'
 - name: Run test job
     uses: colpal/actions-gke-ci-test
     with:
-    GCP_SERVICE_ACCOUNT: ${{ secrets.GCR_GCP_CREDENTIALS }}
-    GCP_PROJECT: 'cp-advancedtech-sandbox'
+    GKE_SERVICE_ACCOUNT: ${{ secrets.GCR_GCP_CREDENTIALS }}
+    GKE_PROJECT: 'cp-advancedtech-sandbox'
     GKE_CLUSTER_NAME: cp-advtech-cluster
     MANIFEST_FILE: 'testing/ci-test.yml'
 ```
