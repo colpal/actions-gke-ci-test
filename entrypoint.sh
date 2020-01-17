@@ -34,9 +34,16 @@ echo "Job created, waiting for pod"
 until [[ $SECONDS -gt $END ]] || [[ $(kubectl get pod -l job-name=$NAME -n $INPUT_NAMESPACE -o jsonpath='{.items[0].status.phase}') == "Running" ]]; do
     STATUS=$(kubectl get pods -l job-name=$NAME -n $INPUT_NAMESPACE -o jsonpath='{.items[0].status.phase}')
     printf "\rPod status: "$STATUS
+    sleep 1
 done
 STATUS=$(kubectl get pods -l job-name=$NAME -n $INPUT_NAMESPACE -o jsonpath='{.items[0].status.phase}')
 printf "\rPod status: "$STATUS
+
+if [[ $SECONDS -gt $END ]]
+then
+    echo "Pod failed to start"
+    exit 1
+fi
 
 printf "\n"
 echo "Job started, displaying logs:"
