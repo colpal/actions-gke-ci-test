@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ev
+set -e
 
 END=300
 ATTEMPTS=0
@@ -26,6 +26,8 @@ until [[ $SECONDS -gt $END ]] || [[ $(kubectl get $JOB -n $INPUT_NAMESPACE -o js
     ((ATTEMPTS=ATTEMPTS+1))
     sleep 1
 done
+printf "\rWaiting "$ATTEMPTS"s"
+((ATTEMPTS=ATTEMPTS+1))
 
 #Make sure first container is running (act)
 echo "Job created, waiting for pod"
@@ -33,6 +35,8 @@ until [[ $SECONDS -gt $END ]] || [[ $(kubectl get pod -l job-name=$NAME -n $INPU
     STATUS=$(kubectl get pods -l job-name=$NAME -n $INPUT_NAMESPACE -o jsonpath='{.items[0].status.phase}')
     printf "\rPod status: "$STATUS
 done
+STATUS=$(kubectl get pods -l job-name=$NAME -n $INPUT_NAMESPACE -o jsonpath='{.items[0].status.phase}')
+printf "\rPod status: "$STATUS
 
 printf "\n"
 echo "Job started, displaying logs:"
