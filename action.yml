@@ -5,12 +5,8 @@ inputs:
   gke_service_account:
     description: 'Service account secret for the GKE service user'
     required: true
-  gke_zone:
-    description: 'Zone which the GKE cluster is on'
-    required: true
-    default: 'us-east4-b'
-  gke_cluster:
-    description: 'GKE cluster to run the job on'
+  gke_cluster_name:
+    description: 'Name of the GKE cluster to run the job on'
     required: false
     default: 'cp-advtech-cluster'
   gke_project:

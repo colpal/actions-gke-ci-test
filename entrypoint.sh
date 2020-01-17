@@ -10,9 +10,9 @@ gcloud auth activate-service-account --key-file=/tmp/service_account.json
 
 gcloud config set project "$GKE_PROJECT"
 
-CZONE=$(gcloud container clusters list --format="get(location)" --filter="name=$GKE_CLUSTER")
+CZONE=$(gcloud container clusters list --format="get(location)" --filter="name=$GKE_CLUSTER_NAME")
 
-gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
+gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $CZONE --project $GKE_PROJECT
 
 
 
