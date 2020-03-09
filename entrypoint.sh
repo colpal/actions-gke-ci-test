@@ -31,7 +31,7 @@ printf "\rWaiting "$ATTEMPTS"s"
 
 #Make sure first container is running (act)
 echo "Job created, waiting for pod"
-until [[ $SECONDS -gt $END ]] || [[ $(kubectl get pod -l job-name=$NAME -n $INPUT_NAMESPACE -o jsonpath='{.items[0].status.phase}') == "Running" ]]; do
+until [[ $SECONDS -gt $END ]] || [[ $(kubectl get pod -l job-name=$NAME -n $INPUT_NAMESPACE -o jsonpath='{.items[0].status.phase}') == "Running" ]] || [[ $(kubectl get pod -l job-name=$NAME -n $INPUT_NAMESPACE -o jsonpath='{.items[0].status.phase}') == "Failed" ]]; do
     STATUS=$(kubectl get pods -l job-name=$NAME -n $INPUT_NAMESPACE -o jsonpath='{.items[0].status.phase}')
     printf "\rPod status: "$STATUS
     sleep 1
@@ -39,9 +39,9 @@ done
 STATUS=$(kubectl get pods -l job-name=$NAME -n $INPUT_NAMESPACE -o jsonpath='{.items[0].status.phase}')
 printf "\rPod status: "$STATUS
 
-if [[ $SECONDS -gt $END ]]
+if [[ $SECONDS -gt $END ]] || [[ $STATUS == "Failed" ]]
 then
-    echo "Pod failed to start"
+    printf "Pod failed to start"
     exit 1
 fi
 
